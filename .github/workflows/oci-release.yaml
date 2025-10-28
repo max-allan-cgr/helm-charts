@@ -79,7 +79,7 @@ jobs:
           echo "=== Debug Info ==="
           echo "GitHub Actor: ${{ github.actor }}"
           echo "Event: ${{ github.event_name }}"
-          echo "Target registry: ghcr.io/slybase/charts"
+          echo "Target registry: ghcr.io/max-allan-cgr/charts"
 
           # Prioritize Personal Access Token over GitHub App
           if [ -n "${{ secrets.SLYBASE_GHCR_TOKEN }}" ]; then
@@ -129,7 +129,7 @@ jobs:
           echo "chart_name=$chart_name" >> $GITHUB_OUTPUT
 
           # Check if this version already exists in the registry
-          if helm pull "oci://ghcr.io/slybase/charts/$chart_name" --version "$chart_version" 2>/dev/null; then
+          if helm pull "oci://ghcr.io/max-allan-cgr/charts/$chart_name" --version "$chart_version" 2>/dev/null; then
             echo "Chart $chart_name:$chart_version already exists in registry"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
@@ -149,12 +149,12 @@ jobs:
           # Package the chart
           helm package "$chart_dir" --destination ./packages
 
-          echo "Pushing to OCI registry: oci://ghcr.io/slybase/charts"
+          echo "Pushing to OCI registry: oci://ghcr.io/max-allan-cgr/charts"
           echo "Chart file: ./packages/${chart_name}-${chart_version}.tgz"
 
           # Push to OCI registry and capture the digest
           set -x  # Enable debug output
-          push_output=$(helm push "./packages/${chart_name}-${chart_version}.tgz" "oci://ghcr.io/slybase/charts" 2>&1) || {
+          push_output=$(helm push "./packages/${chart_name}-${chart_version}.tgz" "oci://ghcr.io/max-allan-cgr/charts" 2>&1) || {
             echo "Helm push failed with exit code $?"
             echo "Push output:"
             echo "$push_output"
@@ -179,7 +179,7 @@ jobs:
           echo "chart_digest=$digest" >> $GITHUB_OUTPUT
 
           # Save chart reference for signing
-          chart_ref="ghcr.io/slybase/charts/${chart_name}@${digest}"
+          chart_ref="ghcr.io/max-allan-cgr/charts/${chart_name}@${digest}"
           echo "chart_ref=$chart_ref" >> $GITHUB_OUTPUT
         id: push
 
@@ -222,7 +222,7 @@ jobs:
           echo "✅ Signed and verified with Cosign"
           echo ""
           echo "To use this chart with Helm:"
-          echo "helm install my-release oci://ghcr.io/slybase/charts/$chart_name --version $chart_version"
+          echo "helm install my-release oci://ghcr.io/max-allan-cgr/charts/$chart_name --version $chart_version"
           echo ""
           echo "To verify signature:"
           echo "cosign verify $chart_ref --certificate-oidc-issuer https://token.actions.githubusercontent.com --certificate-identity https://github.com/${{ github.repository }}/.github/workflows/oci-release.yaml@refs/heads/main"
@@ -243,10 +243,10 @@ jobs:
             metadata_file="artifacthub-repo.yml"
           fi
 
-          echo "Pushing metadata to: ghcr.io/slybase/charts/$chart_name:artifacthub.io"
+          echo "Pushing metadata to: ghcr.io/max-allan-cgr/charts/$chart_name:artifacthub.io"
 
           oras push \
-            "ghcr.io/slybase/charts/$chart_name:artifacthub.io" \
+            "ghcr.io/max-allan-cgr/charts/$chart_name:artifacthub.io" \
             --config /dev/null:application/vnd.cncf.artifacthub.config.v1+yaml \
             "$metadata_file:application/vnd.cncf.artifacthub.repository-metadata.layer.v1.yaml"
 

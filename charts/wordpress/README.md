@@ -7,7 +7,7 @@ This Helm chart installs WordPress in a Kubernetes cluster with many advanced fe
 
 Install with helm
 ```bash
-helm install wordpress oci://ghcr.io/slybase/charts/wordpress
+helm install wordpress oci://ghcr.io/max-allan-cgr/charts/wordpress
 ```
 
 > **Note:** Soon only OCI registries will be supported. Please migrate to this OCI-based installation method shown above.
