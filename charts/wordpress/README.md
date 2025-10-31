@@ -7,7 +7,7 @@ This Helm chart installs WordPress in a Kubernetes cluster with many advanced fe
 
 Install with helm
 ```bash
-helm install wordpress oci://ghcr.io/max-allan-cgr/charts/wordpress
+helm install wordpress oci://ghcr.io/max-allan-cgr/helm-charts/wordpress
 ```
 
 > **Note:** Soon only OCI registries will be supported. Please migrate to this OCI-based installation method shown above.
@@ -89,12 +89,12 @@ By default this chart does not install any WordPress themes or preconfigure plug
 
 ### Basic Installation
 ```bash
-helm install my-wordpress slycharts/wordpress
+helm install my-wordpress oci://ghcr.io/max-allan-cgr/helm-charts/wordpress
 ```
 
 ### With External Database
 ```bash
-helm install my-wordpress slycharts/wordpress \
+helm install my-wordpress oci://ghcr.io/max-allan-cgr/helm-charts/wordpress \
   --set externalDatabase.host=your-db-host \
   --set externalDatabase.username=your-user \
   --set externalDatabase.password=your-password \
@@ -103,11 +103,9 @@ helm install my-wordpress slycharts/wordpress \
 
 ### With Metrics
 ```bash
-helm install my-wordpress slycharts/wordpress \
+helm install my-wordpress oci://ghcr.io/max-allan-cgr/helm-charts/wordpress \
   --set metrics.wordpress.enabled=true \
   --set metrics.apache.enabled=true
 ```
 
-## Support
 
-For issues or contributions: [GitHub Repository](https://github.com/slydlake/helm-charts)
