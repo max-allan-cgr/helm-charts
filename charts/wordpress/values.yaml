@@ -17,7 +17,7 @@ image:
   repository: docker.io/wordpress
   ## @param image.tag string Overrides the image tag whose default is the chart appVersion
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "6.8.3-php8.1-apache@sha256:75f79f9c45a587b283e47fd21c6e51077d0c9dbbba529377faaa0c28d5b8f5a4"
+  tag: "6.8.3-php8.1-apache@sha256:eeef49fcf96858412e393d73d7b2894610ade3af929da3975ae463584ff7ce46"
   ## @param image.pullPolicy string Image pull policy
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
